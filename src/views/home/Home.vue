@@ -3,33 +3,40 @@
     <nav-bar class="home-nav">
       <div slot="center">购物街</div>
     </nav-bar>
-    <home-swiper :banners="banners"/>
-    <recommend-view :recommends="recommends"/>
-    <feature-view/>
-    <tab-control :titles="['流行', '新款', '精选']" class="tab-control" @tabClick="tabClick"/>
-    <goods-list :goods="showGoods"/>
+    <scroll class="content">
+      <home-swiper :banners="banners"/>
+      <recommend-view :recommends="recommends"/>
+      <feature-view/>
+      <tab-control :titles="['流行', '新款', '精选']" class="tab-control" @tabClick="tabClick"/>
+      <goods-list :goods="showGoods"/>
+    </scroll>
   </div>
 </template>
 
 <script>
   import NavBar from "components/common/navbar/NavBar";
-  import TabControl from "@/components/content/tabControl/TabControl";
-  import GoodsList from "../../components/content/goods/GoodsList";
+  import TabControl from "components/content/tabControl/TabControl";
+  import GoodsList from "components/content/goods/GoodsList";
+  import SwiperItem from "components/common/swiper/SwiperItem";
+
   import HomeSwiper from "./childComps/HomeSwiper";
   import RecommendView from "./childComps/RecommendView";
   import FeatureView from "./childComps/FeatureView";
 
   import {getHomeMultidata, getHomeGoods} from "network/home";
+  import Scroll from "../../components/common/scroll/Scroll";
 
   export default {
     name: "Home",
     components: {
+      Scroll,
       NavBar,
       HomeSwiper,
       RecommendView,
       FeatureView,
       TabControl,
-      GoodsList
+      GoodsList,
+      SwiperItem
     },
     data() {
       return {
@@ -97,6 +104,8 @@
 <style scoped>
   #home {
     padding-top: 44px;
+    height: 100vh;
+    position: relative;
   }
 
   .home-nav {
@@ -112,5 +121,13 @@
   .tab-control {
     position: sticky;
     top: 44px;
+  }
+  .content {
+    overflow: hidden;
+    position: absolute;
+    top: 44px;
+    bottom: 49px;
+    left: 0;
+    right: 0;
   }
 </style>
